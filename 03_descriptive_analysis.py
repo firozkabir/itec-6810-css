@@ -67,27 +67,6 @@ boxplot(x=dat$registered,dat$casual,names = c("registered","casual"),col="#33658
         ylab="Bike rentals",xlab="Types of users", main = 'Bike rental vs. type of users',
         cex.main = 2, cex.lab = 1.5, cex.axis = 1.5)
 
-# # count of bicycles with season
-# options(repr.plot.width=11, repr.plot.height = 8)
-# options(scipen = 3)
-# tw = aggregate(cnt~season, sum , data = dat)
-# xx <- barplot(tw$cnt, col = c("#55DDE0",  "#F6AE2D", "#F26419", "#33658A", "#2F4858", "#999999"),
-#               ylim = c(0,1110000), names.arg = c("Spring", "Summer", "Fall", "Winter"),
-#         xlab = "season", ylab = "no. of bike rentals", main = "Bike rentals vs. season",
-#        cex.main = 2, cex.lab = 1.5, cex.axis = 1.3, cex = 1.2)
-# text(x = xx, y = tw$cnt, label = tw$cnt, pos = 3, cex = 1.2, col = "red")
-
-# #boxplot of rental v.s. season
-# ggplot(dat, aes(x = season, y = cnt, fill = factor(season))) +
-#   geom_boxplot(outlier.color = adjustcolor("black", alpha.f = 1), na.rm = TRUE) +
-#   ylab("Number of Bike Rentals") +
-#   ggtitle("\n") +
-#   scale_fill_manual(values = c("#55DDE0",  "#F6AE2D", "#F26419", "#33658A", "#2F4858", "#999999"),
-#                     name="Season:",
-#                     breaks=c(1, 2, 3, 4),
-#                     labels=c("Spring", "Summer", "Fall","Winter"))+
-#   theme(text = element_text(size = 20), plot.title = element_text(size = 24, face="bold"))
-
 # take the summary of environmetal temperature
 # spring
 spring = subset(dat, season == 1)$cnt
@@ -143,21 +122,6 @@ ggplot(dat, aes(x = as.character(workingday) , y = cnt, fill = factor(season))) 
                     breaks=c(1, 2, 3, 4),
                     labels=c("Spring", "Summer", "Fall","Winter")) +
   theme(text = element_text(size = 20), plot.title = element_text(size = 24, face="bold"))
-
-# # count of bicycles over whether
-# tb = aggregate(cnt~weathersit, sum, data = dat)
-# xx <- barplot(tb$cnt, col = c("#55DDE0",  "#F6AE2D", "#F26419", "#33658A", "#2F4858", "#999999"),
-#               names.arg = c("Clear", "Mist", "Light Snow", "Heavy Rain"), ylim = c(0, 2500000),
-#               xlab = "whether", ylab = "no.of bicycles", main = "Bike rentals vs. wather",
-#               cex.main = 2, cex.lab = 1.5, cex.axis = 1.5, cex = 1.2)
-# ## Add text at top of bars
-# text(x = xx, y = tb$cnt, label = tb$cnt, pos = 3, cex = 1.2, col = "red")
-# cl = subset(dat, weathersit == 1)
-# summary(cl$cnt)
-# mi = subset(dat, weathersit == 2)
-# summary(mi$cnt)
-# ls = subset(dat, weathersit == 3)
-# summary(ls$cnt)
 
 #bicycles with humidity
 hm = aggregate(cnt~humidity, mean, data = dat)
@@ -218,23 +182,3 @@ ggplot(dat, aes(x = as.character(holiday) , y = cnt, fill = factor(weathersit)))
                     breaks=c(1, 2, 3, 4),
                     labels=c("Clear", "Mist", "Light Snow", "Heavy Rain")) +
   theme(text = element_text(size = 20), plot.title = element_text(size = 24, face="bold"))
-
-# bike.select <- data.frame(dat$season,dat$yr,dat$mnth,dat$hr,dat$holiday,dat$weekday,dat$workingday
-#                           ,dat$weathersit,dat$env.temp, dat$feel.temp,
-#                           dat$humidity, dat$wsp, dat$casual, dat$registered,dat$cnt)
-# names(bike.select) <- c("season","year","month","hour","holiday","weekday","workingday","weathersit"
-#                         ,"temperature", "feel temperature", "humidity",
-#                         "windspeed","casual","registerd", "count")
-# cormat = matrix(data = 0, 15,15)
-# row.names(cormat) = c("season","year","month","hour","holiday","weekday","workingday","weathersit"
-#                       ,"temperature", "feel temperature", "humidity",
-#                       "windspeed","casual","registerd", "count")
-# colnames(cormat) = c("season","year","month","hour","holiday","weekday","workingday","weathersit"
-#                      ,"temperature", "feel temperature", "humidity",
-#                      "windspeed","casual","registerd", "count")
-# for (i in 1:15) {
-#   for (j in 1:15) {
-#     cormat[i,j] = cor(bike.select[i],bike.select[j])
-#   }
-# }
-# corrplot(cormat, type = "upper", order = "hclust", sig.level = 0.01, insig = "blank", tl.cex=1.4)
